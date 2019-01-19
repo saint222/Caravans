@@ -12,6 +12,18 @@ namespace Caravans
         public int HP { get; set; }
         public int AttackStrength { get; set; }
         public int BlockStrength { get; set; }
-        public int WarriorPrice { get; set; }
+        public int Price { get; set; }
+
+        Random rnd = new Random();
+
+        public Warrior(string name)
+        {
+            WarriorName = name;
+            HP = 100;
+            AttackStrength = rnd.Next(1, 100);
+            BlockStrength = rnd.Next(1, 100);
+            Price = (AttackStrength+BlockStrength)/2;
+        }      
+        
     }
 }
