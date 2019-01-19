@@ -9,6 +9,7 @@ namespace Caravans
     public class Squad : BaseEntity
     {
         public string SquadName { get; set; }
+        public int MasterCard { get; set; }
         public virtual List<Warrior> Warriors { get; set; }
     }
 }
