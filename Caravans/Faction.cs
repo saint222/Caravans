@@ -8,7 +8,8 @@ namespace Caravans
 {
     public class Faction : BaseEntity
     {
-        public string FactionName { get; set; }
+        public string FactionName { get; set; }        
         public virtual List<Squad> Squads { get; set; }
+        public virtual List<Warrior> Warriors { get; set; }
     }
 }
