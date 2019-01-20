@@ -14,16 +14,23 @@ namespace Caravans
         public int BlockStrength { get; set; }
         public int Price { get; set; }
 
-        Random rnd = new Random();
+        Random Rnd = new Random(Guid.NewGuid().GetHashCode()); // Гайд с Хэшкодом закидывается внутрь,чтобы избежать повторяющихся генераций чисел
 
         public Warrior(string name)
-        {
+        {            
             WarriorName = name;
             HP = 100;
-            AttackStrength = rnd.Next(1, 100);
-            BlockStrength = rnd.Next(1, 100);
-            Price = (AttackStrength+BlockStrength)/2;
-        }      
+            AttackStrength = Rnd.Next(1, 100);
+            BlockStrength = Rnd.Next(1, 100);
+            Price = (AttackStrength+BlockStrength)/2;            
+        }
+
+        public Warrior()
+        {
+            
+        }
+
         
+
     }
 }
