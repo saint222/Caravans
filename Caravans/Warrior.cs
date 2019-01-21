@@ -15,7 +15,6 @@ namespace Caravans
         public int Price { get; set; }
 
         Random Rnd = new Random(Guid.NewGuid().GetHashCode()); // Гайд с Хэшкодом закидывается внутрь,чтобы избежать повторяющихся генераций чисел
-
         public Warrior(string name)
         {            
             WarriorName = name;
@@ -24,7 +23,6 @@ namespace Caravans
             BlockStrength = Rnd.Next(1, 100);
             Price = (AttackStrength+BlockStrength)/2;            
         }
-
         public Warrior()
         {
             
