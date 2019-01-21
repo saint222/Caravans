@@ -239,19 +239,42 @@ namespace Caravans
                         Console.ReadLine();
                         int conditionFirst = figter_1.HP;
                         int conditionSecond = figter_2.HP;
+                        Random rnd = new Random();                       
                         while (figter_1.HP > 0 || figter_2.HP > 0)
-                        {                           
-                            conditionFirst = conditionFirst - (figter_1.BlockStrength - figter_2.AttackStrength);
-                            conditionSecond = conditionSecond - (figter_2.BlockStrength - figter_1.AttackStrength);
+                        {
+                            int damage_1;
+                            int damge_2;
+                            damage_1 = figter_2.AttackStrength - figter_1.BlockStrength;
+                            
+                            if (damage_1 > 10)
+                            {
+                                conditionFirst = conditionFirst - damage_1;
+                            }
+                            else if (damage_1 < 10)
+                            {
+                                conditionFirst = conditionFirst - (rnd.Next (1,6));
+                            }
+
+                            damge_2 = figter_1.AttackStrength - figter_2.BlockStrength;
+
+                            if (damge_2 > 10)
+                            {
+                                conditionSecond = conditionSecond - damge_2;
+                            }
+                            else if (damage_1 < 10)
+                            {
+                                conditionSecond = conditionSecond - (rnd.Next(1, 6));
+                            }
+
                             if (conditionFirst == 0)
                             {
-                                Console.WriteLine($"{figter_1.WarriorName} has lost...");
-                                Console.WriteLine($"{figter_2.WarriorName} has won...");
+                                Console.WriteLine($"{figter_1.WarriorName} has won...");
+                                Console.WriteLine($"{figter_2.WarriorName} has lost...");
                             }
                             else if (conditionSecond == 0)
                             {
-                                Console.WriteLine($"{figter_2.WarriorName} has lost...");
-                                Console.WriteLine($"{figter_1.WarriorName} has won...");
+                                Console.WriteLine($"{figter_2.WarriorName} has won...");
+                                Console.WriteLine($"{figter_1.WarriorName} has lost...");
                             }                            
                         }
                     }
