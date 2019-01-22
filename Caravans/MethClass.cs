@@ -98,13 +98,13 @@ namespace Caravans
             var correct = false;
             while (!correct)
             {
-                Console.WriteLine("Here is a list of warriors. Choose a warrior to buy and press enter...");
+                Console.WriteLine("Here is a list of warriors. Choose a a free warrior (not in a squad) to buy and press enter...");
                 using (var context = new WarriorsContext())
                 {
                     var faction = context.Factions.Include(i => i.Warriors).ToList();
                     foreach (var p in faction) // шагаем ОДНИМ форычем по сложному объекту
                     {
-                        foreach (var i in p.Warriors) // шагаем ОДНИМ форычем по сложному объекту
+                        foreach (var i in p.Warriors.Where(i =>i.SquadId==null)) // фильтр (ТЕ, КТО НЕ В КАКАОМ-НИТЬ ОТРЯДЕ)
                         {
                             Console.WriteLine($"{i.Id}-{i.WarriorName} with {i.HP} HP, {i.Price} $ cost, {i.AttackStrength} points of attack power and {i.BlockStrength} points security abilities.");
                         }
@@ -243,7 +243,7 @@ namespace Caravans
                         
                         int conditionFirst = figter_1.HP;
                         int conditionSecond = figter_2.HP;
-                        Random rnd = new Random(Guid.NewGuid().GetHashCode());
+                        //Random rnd = new Random(Guid.NewGuid().GetHashCode()); // альтернатива
                         while (conditionFirst > 0 && conditionSecond > 0)
                         {
                             
@@ -256,7 +256,7 @@ namespace Caravans
                             }
                             else 
                             {
-                                conditionFirst = conditionFirst - (rnd.Next(1, 6));
+                                conditionFirst = conditionFirst - (MyRandom.Rand.Next(1, 6)); //рандом через статик-класс
                                 Console.WriteLine($"{figter_1.WarriorName} got {damage_1} points of damage. {figter_1.WarriorName}'s HP is {conditionFirst}.");
                             }                            
 
@@ -269,7 +269,7 @@ namespace Caravans
                             }
                             else
                             {
-                                conditionSecond = conditionSecond - (rnd.Next(1, 6));
+                                conditionSecond = conditionSecond - (MyRandom.Rand.Next(1, 6)); //рандом через статик-класс
                                 Console.WriteLine($"{figter_2.WarriorName} got {damge_2} points of damage. {figter_2.WarriorName}'s HP is {conditionSecond}.");
                             }
 
