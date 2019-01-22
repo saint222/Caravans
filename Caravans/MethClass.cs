@@ -132,6 +132,7 @@ namespace Caravans
                                     context.SaveChanges();
                                     Console.WriteLine("Done!");
                                     Console.WriteLine($"There are {chosenSquad.MasterCard} $ in {chosenSquad.SquadName} treasury left.");
+                                    Console.WriteLine("Press Enter to continue...");
                                     correct = true;
                                 }
                                 else
@@ -236,46 +237,44 @@ namespace Caravans
                         var figter_1 = chosenSquad_1.Warriors.FirstOrDefault();
                         var figter_2 = chosenSquad_2.Warriors.FirstOrDefault();
                         Console.WriteLine($"{figter_1.WarriorName} is going kick {figter_2.WarriorName}'s ass...press Enter to start fighting...");
-                        Console.ReadLine();
+                        Console.ReadLine();                        
+                        Random rnd = new Random();
                         int conditionFirst = figter_1.HP;
                         int conditionSecond = figter_2.HP;
-                        Random rnd = new Random();                       
-                        while (figter_1.HP > 0 || figter_2.HP > 0)
-                        {
-                            int damage_1;
-                            int damge_2;
-                            damage_1 = figter_2.AttackStrength - figter_1.BlockStrength;
-                            
+                        while (figter_1.HP > 0 && figter_2.HP > 0)
+                        {                           
+                            var damage_1 = figter_2.AttackStrength - figter_1.BlockStrength;
+
                             if (damage_1 > 10)
                             {
                                 conditionFirst = conditionFirst - damage_1;
                             }
-                            else if (damage_1 < 10)
+                            else 
                             {
-                                conditionFirst = conditionFirst - (rnd.Next (1,6));
-                            }
+                                conditionFirst = conditionFirst - (rnd.Next(1, 6));
+                            }                            
 
-                            damge_2 = figter_1.AttackStrength - figter_2.BlockStrength;
+                            var damge_2 = figter_1.AttackStrength - figter_2.BlockStrength;
 
                             if (damge_2 > 10)
                             {
                                 conditionSecond = conditionSecond - damge_2;
                             }
-                            else if (damage_1 < 10)
+                            else
                             {
                                 conditionSecond = conditionSecond - (rnd.Next(1, 6));
                             }
 
-                            if (conditionFirst == 0)
+                            if (conditionFirst <= 0)
                             {
                                 Console.WriteLine($"{figter_1.WarriorName} has won...");
                                 Console.WriteLine($"{figter_2.WarriorName} has lost...");
                             }
-                            else if (conditionSecond == 0)
+                            else if (conditionSecond <= 0)
                             {
                                 Console.WriteLine($"{figter_2.WarriorName} has won...");
                                 Console.WriteLine($"{figter_1.WarriorName} has lost...");
-                            }                            
+                            }
                         }
                     }
                 }
