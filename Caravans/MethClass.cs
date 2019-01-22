@@ -241,7 +241,7 @@ namespace Caravans
                         Random rnd = new Random();
                         int conditionFirst = figter_1.HP;
                         int conditionSecond = figter_2.HP;
-                        while (figter_1.HP > 0 && figter_2.HP > 0)
+                        while (conditionFirst > 0 && conditionSecond > 0)
                         {                           
                             var damage_1 = figter_2.AttackStrength - figter_1.BlockStrength;
 
