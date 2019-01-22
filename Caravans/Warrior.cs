@@ -14,8 +14,8 @@ namespace Caravans
         public int AttackStrength { get; set; }
         public int BlockStrength { get; set; }
         public int Price { get; set; }
-        
-        
+        public int? SquadId { get; set; } //
+
         Random Rnd = new Random(Guid.NewGuid().GetHashCode()); // Гайд с Хэшкодом закидывается внутрь,чтобы избежать повторяющихся генераций чисел
         public Warrior(string name)
         {            
