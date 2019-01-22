@@ -102,9 +102,9 @@ namespace Caravans
                 using (var context = new WarriorsContext())
                 {
                     var faction = context.Factions.Include(i => i.Warriors).ToList();
-                    foreach (var p in faction) // шагаем форычем по сложному объекту
+                    foreach (var p in faction) // шагаем ОДНИМ форычем по сложному объекту
                     {
-                        foreach (var i in p.Warriors) // шагаем форычем по сложному объекту
+                        foreach (var i in p.Warriors) // шагаем ОДНИМ форычем по сложному объекту
                         {
                             Console.WriteLine($"{i.Id}-{i.WarriorName} with {i.HP} HP, {i.Price} $ cost, {i.AttackStrength} points of attack power and {i.BlockStrength} points security abilities.");
                         }
@@ -208,8 +208,10 @@ namespace Caravans
         }
         public void AttackCaravan()
         {
+            
             using (var context = new WarriorsContext())
             {
+                Console.Clear();
                 Squad chosenSquad_1;
                 Squad chosenSquad_2;
                 Console.WriteLine("Choose the first squad to fight");
@@ -237,21 +239,25 @@ namespace Caravans
                         var figter_1 = chosenSquad_1.Warriors.FirstOrDefault();
                         var figter_2 = chosenSquad_2.Warriors.FirstOrDefault();
                         Console.WriteLine($"{figter_1.WarriorName} is going kick {figter_2.WarriorName}'s ass...press Enter to start fighting...");
-                        Console.ReadLine();                        
-                        Random rnd = new Random();
+                        Console.ReadLine();                  
+                        
                         int conditionFirst = figter_1.HP;
                         int conditionSecond = figter_2.HP;
+                        Random rnd = new Random(Guid.NewGuid().GetHashCode());
                         while (conditionFirst > 0 && conditionSecond > 0)
-                        {                           
+                        {
+                            
                             var damage_1 = figter_2.AttackStrength - figter_1.BlockStrength;
 
                             if (damage_1 > 10)
                             {
                                 conditionFirst = conditionFirst - damage_1;
+                                Console.WriteLine($"{figter_1.WarriorName} got {damage_1} points of damage. {figter_1.WarriorName}'s HP is {conditionFirst}.");
                             }
                             else 
                             {
                                 conditionFirst = conditionFirst - (rnd.Next(1, 6));
+                                Console.WriteLine($"{figter_1.WarriorName} got {damage_1} points of damage. {figter_1.WarriorName}'s HP is {conditionFirst}.");
                             }                            
 
                             var damge_2 = figter_1.AttackStrength - figter_2.BlockStrength;
@@ -259,21 +265,27 @@ namespace Caravans
                             if (damge_2 > 10)
                             {
                                 conditionSecond = conditionSecond - damge_2;
+                                Console.WriteLine($"{figter_2.WarriorName} got {damge_2} points of damage. {figter_2.WarriorName}'s HP is {conditionSecond}.");
                             }
                             else
                             {
                                 conditionSecond = conditionSecond - (rnd.Next(1, 6));
+                                Console.WriteLine($"{figter_2.WarriorName} got {damge_2} points of damage. {figter_2.WarriorName}'s HP is {conditionSecond}.");
                             }
 
                             if (conditionFirst <= 0)
                             {
-                                Console.WriteLine($"{figter_1.WarriorName} has won...");
-                                Console.WriteLine($"{figter_2.WarriorName} has lost...");
+                                Console.WriteLine();
+                                Console.WriteLine($"{figter_1.WarriorName} has lost...");
+                                Console.WriteLine($"{figter_2.WarriorName} has won...");
+                                Console.WriteLine("\nPress Enter to continue...");
                             }
                             else if (conditionSecond <= 0)
                             {
-                                Console.WriteLine($"{figter_2.WarriorName} has won...");
-                                Console.WriteLine($"{figter_1.WarriorName} has lost...");
+                                Console.WriteLine();
+                                Console.WriteLine($"{figter_1.WarriorName} has won...");
+                                Console.WriteLine($"{figter_2.WarriorName} has lost...");
+                                Console.WriteLine("\nPress Enter to continue...");
                             }
                         }
                     }
